@@ -12,8 +12,9 @@ export class DominoTableFives extends DominoTable{
     await super.startRound();
   }
 
-  get playMoveAvailable() { // block
-    return this.players.find(p => p.workSet.movablePieces.length > 0) != null && this.players.find(p => p.workSet.pieces.length == 0) == null;
+  get playMoveAvailable() { 
+    return (this.players.find(p => p.workSet.movablePieces.length > 0) != null || this.unusedSet.pieces.length > 0) 
+      && this.players.find(p => p.workSet.pieces.length == 0) == null;
   }
 
   async playFirstMove(){

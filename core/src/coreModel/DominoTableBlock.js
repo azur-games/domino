@@ -6,12 +6,12 @@ import lodash from 'lodash';
 export class DominoTableBlock extends DominoTable{
   mode = "block";
 
-  get playMoveAvailable() { // block
+  get playMoveAvailable() { 
     return this.players.find(p => p.workSet.movablePieces.length > 0) != null
      && this.players.find(p => p.workSet.pieces.length == 0) == null;
   }
 
-  async playMove() { // block
+  async playMove() {
     if(this.turn.workSet.movablePieces.length > 0) {
       await this.makePlayerMove();
     } else {
