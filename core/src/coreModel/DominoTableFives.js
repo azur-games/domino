@@ -2,12 +2,10 @@ import { DominoTable } from "./DominoTable";
 import * as Types from '../types';
 import { Piece } from "./Piece";
 import lodash from "lodash";
+import { DELAY_DISTRIBUTE } from "./delays";
 
 export class DominoTableFives extends DominoTable{
   mode = "fives";
-
-  /** @type {Piece} */
-  pivot;
 
   async startRound() {
     this.pivot = null;
@@ -25,7 +23,7 @@ export class DominoTableFives extends DominoTable{
   }
 
   async playMove() { // block
-    if(this.turn.workSet.movablePieces) {      
+    if(this.turn.workSet.movablePieces.length  > 0) {      
       await this.makePlayerMove();
       await this.handlePivot();
       await this.handleFives();
@@ -42,7 +40,7 @@ export class DominoTableFives extends DominoTable{
   }
 
   async handlePivot() {
-    if(this.pivot == 0) return;
+    if(this.pivot != null) return;
     let lastPiece = this.playedSet.pieces.reverse()[0];
     if(lastPiece.isDouble) {
       this.pivot = lastPiece;

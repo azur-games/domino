@@ -20,6 +20,9 @@ export class PlayerWorkSet extends Place {
   }
 
   get movablePieces() {
+    if(this.table.joints.length == 0) {
+      this.pieces;
+    }
     return this.pieces.filter(i => i.suitableTableJoints.length > 0);
   }
 
@@ -35,10 +38,4 @@ export class PlayerWorkSet extends Place {
     this._sort();
   }
 
-  /**
-   * @param {Player} player 
-   */
-  visibleTo(player) {
-    return this.player == player;
-  }
 }

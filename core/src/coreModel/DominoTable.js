@@ -8,8 +8,9 @@ import { Player } from './Player';
 import { PlayerTimer } from './PlayerTimer';
 import { TypedEvent0, TypedEvent1, TypedEvent2 } from '../utils/emmiterUtils';
 import { PlayerWorkSet } from './PlayerWorkSet';
-import { PlayedPlace } from './TrickPlace';
+import { PlayedPlace } from './PlayedPlace';
 import { DELAY_ASSEMBLE, DELAY_DISTRIBUTE, DELAY_MOVE, DELAY_MOVE_ANIMATION, DELAY_SHOW } from './delays';
+import { PiecesLayout } from './PiecesLayout';
 
 /** @typedef {{piece:Piece, additional: boolean, value: Types.PieceValue}} Joint  */
 
@@ -18,7 +19,7 @@ export class DominoTable extends events.EventEmitter  {
   eventUpdated = new TypedEvent0(this, "updated");
   /** @readonly */
   eventFinished = new TypedEvent0(this, "finished");
-  /** @readonly @type {TypedEvent2<Player, {msg:Types.MsgType, piece:[Types.PieceValue,Types.PieceValue], duration: integer}>} */
+  /** @readonly @type {TypedEvent2<Player, Types.MessageDto>} */
   eventPhrase = new TypedEvent2(this, "phrase");
 
   /** @type {Piece[]} @readonly */
@@ -49,13 +50,19 @@ export class DominoTable extends events.EventEmitter  {
   /** @type {Types.Move[]} */
   possibleMoves;
 
+  /** @type {Piece} */
+  pivot;
+  
+  /** @type {PiecesLayout} */
+  layout;
+
   constructor({targetScore=10, /** @type {(2|3|4)} */players=2}) {
     super();
     this.unusedSet = new UnusedSet(this);
     this.playedSet = new PlayedPlace(this);
-    this.pieces = Types.PieceValues.flatMap(mn => Types.PieceValues.filter(mx => mx >= mn).max(mx => new Piece([mn, mx], this.unusedSet, 0)));
+    this.pieces = Types.PieceValues.flatMap(mn => Types.PieceValues.filter(mx => mx >= mn).map(mx => new Piece([mn, mx], this.unusedSet, 0)));
     this.unusedSet.shuffle();
-    this.players = new Array(players).map(i=>new Player(this));
+    this.players = Array.from(Array(players)).map(i=>new Player(this));
     for(let i = 0; i < this.players.length; i++) {
       this.players[i].data.id = -i;
       this.players[i].data.name = "Player#" + i;
@@ -65,6 +72,8 @@ export class DominoTable extends events.EventEmitter  {
     this.syncTimeMillis = 0;
     this.possibleMoves = [];
     this.joints = [];
+    this.layout = new PiecesLayout(this);
+    this.playedSet
   }
 
   playCycle = async() => {
@@ -82,6 +91,7 @@ export class DominoTable extends events.EventEmitter  {
     this.turn = null;
     this.phase = null;
     this.joints = [];
+    this.layout.reset();
 
     await this.assemblePieces();
     await this.distributePieces();
@@ -102,7 +112,7 @@ export class DominoTable extends events.EventEmitter  {
     this.phase = Types.Phases.DISTRIBUTION;
     for(let i = 0; i < 7; i++) {
       for(let p of this.players) {
-        p.workSet.add(p);
+        p.workSet.add(this.unusedSet.pieces[0]);
       }
     }
     this.syncState(DELAY_DISTRIBUTE);
@@ -139,6 +149,7 @@ export class DominoTable extends events.EventEmitter  {
     const m = await this.fetchMove(this.turn.workSet.pieces.map(i => ({action:"move", piece: i.values, joint: null})));
     const p = this.pieces.find(i => lodash.isEqual(i.values, m.piece));
     this.playedSet.add(p);
+    this.layout.add(p);
     this.joints.push(
       {piece:p, additional: false, value: p.lowValue},
       {piece:p, additional: false, value: p.highValue},
@@ -170,6 +181,7 @@ export class DominoTable extends events.EventEmitter  {
       && m.joint.additional == j.additional && m.joint.value == j.value);
     this.joints[this.joints.indexOf(p.joint)] = {piece: p, value: p.freeValue, additional: false};
     this.playedSet.add(p);
+    this.layout.add(p);
     this.syncState(DELAY_MOVE_ANIMATION);
     await this.waitSync();
   }

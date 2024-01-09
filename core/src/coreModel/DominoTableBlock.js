@@ -1,6 +1,6 @@
 import { DominoTable } from "./DominoTable";
 import * as Types from '../types';
-import { DELAY_MOVE_ANIMATION } from "./delays";
+import { DELAY_MOVE_ANIMATION, DELAY_SCORE } from "./delays";
 import lodash from 'lodash';
 
 export class DominoTableBlock extends DominoTable{

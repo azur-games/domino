@@ -14,9 +14,8 @@ export const PieceValues =  Object.freeze([
 /** 
 * @typedef {{
 *  id: integer,
-*  side: PlayerSide,
 *  name: string,
-*  icon: string
+*  icon: string,
 * }} PlayerInfo
 */
 
@@ -48,5 +47,15 @@ export const MsgTypeDict = Object.freeze({
   PASS:/** @type {MsgType} */ 'pass',
   SHOW_HIGHEST:/** @type {MsgType} */ 'showHighest'
 });
+
+/** @typedef {('left'|'right'|'bottom')} PlayerSide */
+export const PlayerSides = Object.freeze({
+  LEFT: "left",
+  RIGHT: "right",
+  BOTTOM: "bottom",
+  TOP: "top"
+});
+
+/** @typedef {{msg:MsgType, piece:[PieceValue,PieceValue], duration: integer}} MessageDto */
 
 export default {};

@@ -3,7 +3,6 @@ import { DominoTable } from "./DominoTable";
 import { Place } from "./Place";
 import * as Types from "../types";
 import { PlayerWorkSet } from "./PlayerWorkSet";
-import { PlayerCollectedSet } from "./PlayerCollectedSet";
 import { UserConnector } from "../userModel/UserConnector";
 
 export class Player {

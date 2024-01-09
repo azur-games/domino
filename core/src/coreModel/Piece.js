@@ -55,7 +55,7 @@ export class Piece {
   }
 
   get suitableTableJoints() {
-    return this.place.table.joints.filter(j => i.values.indexOf(j.value) >= 0);
+    return this.place.table.joints.filter(j => this.values.indexOf(j.value) >= 0);
   }
 
   // not connected side

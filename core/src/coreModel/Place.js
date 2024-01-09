@@ -45,11 +45,4 @@ export class Place {
   _sort() {
     // unsorted
   }
-
-  /**
-   * @param {Player} player 
-   */
-  visibleTo(player) {
-    return false;    
-  }
 }

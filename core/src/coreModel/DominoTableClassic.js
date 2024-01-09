@@ -11,7 +11,7 @@ export class DominoTableClassic extends DominoTable{
   }
 
   async playMove() { // block
-    if(this.turn.workSet.movablePieces) {      
+    if(this.turn.workSet.movablePieces.length > 0) {      
       await this.makePlayerMove();
       this.turn = this.turn.next; 
     } else if (this.unusedSet.pieces.length > 0) {

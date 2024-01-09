@@ -1,0 +1,216 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+#game {
+  width: 100vw;
+  height: 100vh;
+  background: #ccc;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+}
+
+#leftPanel {
+  position: absolute;
+  left: 0;
+  top: 4vh;
+  width: 30vh;
+  height: 30vh;
+  background: #fcc;
+  justify-content: center;
+}
+#leftPanel .phrase {
+  position: absolute;
+  left: 1vh;
+  top: 1vh;
+}
+#leftPanel .info {
+  position: absolute;
+  left: 1vh;
+  top: 7vh;
+}
+#leftPanel .piece {
+  float: right;
+  clear: right;
+  margin-right: 1vh;
+  margin-top: 1vh
+}
+
+#rightPanel {
+  position: absolute;
+  right: 0;
+  top: 4vh;
+  width: 30vh;
+  height: 30vh;
+  background: #ccf;
+}
+
+#rightPanel .phrase {
+  position: absolute;
+  left: 7vh;
+  top: 1vh;
+}
+#rightPanel .info {
+  position: absolute;
+  left: 7vh;
+  top: 7vh;
+}
+#rightPanel .piece {
+  float: left;
+  clear: left;
+  margin-left: 1vh;
+  margin-top: 1vh
+}
+
+#bottomPanel {
+  position: absolute;
+  left: 19.5vh;
+  bottom: 0;
+  width: 61vh;
+  height: 30vh;
+  background: #cfc;
+  font-size: 0;
+}
+#bottomPanel .phrase {
+  position: absolute;
+  left: 1vh;
+  top: 4vh;
+  font-size: 2vh;
+}
+#bottomPanel .info {
+  position: absolute;
+  left: 1vh;
+  top: 15vh;
+  font-size: 1.5vh;
+}
+#bottomPanel .info pre {
+  margin: 0;
+  width: 61vh;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+#bottomPanel .piece {
+  float: left;
+  margin-left: 1vh;
+  margin-top: 1vh
+}
+
+#centerPanel {
+  position: absolute;
+  left:0vh;
+  top: 35vh;
+
+  width: 100vw;
+  height: 30vh;
+  background: #eee;
+  font-size: 0;
+}
+
+#centerPanel .piece.hor {
+  margin-left: -2vh;
+  margin-bottom: -1vh;
+}
+
+#centerPanel .piece.ver {
+  margin-left: -1vh;
+  margin-bottom: -2vh;
+}
+
+#topPanel {
+  position: absolute;
+  left: 35vh;
+  top: 4vh;
+  width: 30vh;
+  height: 30vh;
+  background: #bbb;
+  font-size: 2vh;
+}
+
+#controlPanel {
+  position: absolute;
+  top: 0vh;
+  left: 0vh;
+  width: 100vh;
+  height: 3vh;
+  background: #bbb;
+  font-size: 2vh;
+}
+
+#movePanel {
+  position: absolute;
+  top: 90vh;
+  left: 0vh;
+  width: 100vw;
+  min-height: 10vh;
+  background: #bbb;
+  font-size: 2vh;
+}
+
+.piece {
+  width: 4vh;
+  height: 2vh;
+  background: #fff;
+  /* box-shadow: 0vh 0vh 0.25vh 0.25vh gray; */
+  border: 1px solid black;
+  text-align:  center;
+  position: relative;
+}
+
+.piece.hor {
+  width: 4vh; 
+  height: 2vh;
+}
+
+.piece.ver {
+  height: 4vh; 
+  width: 2vh;
+}
+
+.piece.hor div {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+}
+
+.piece.ver div {
+  width: 100%;
+  height: 50%;
+}
+
+.piece div {
+  font-size: 2vh;
+  line-height: 2vh;
+}
+
+.piece .left {
+  left: 0;
+  border-right: 1px solid lightgray;
+}
+
+.piece .right {
+  right: 0;
+}
+
+.piece .top {
+  top: 0; 
+  border-bottom: 1px solid lightgray;
+}
+
+.piece .bottom {
+  bottom: 0;
+}
+
+.piece.closed {
+  background: #aaa;
+  font-size: 0;
+}
+
+.piece.closed div {
+  font-size: 0;
+}
+
+.piece.hidden {
+  display: none;
+}
+

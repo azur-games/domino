@@ -7,12 +7,5 @@ export class PlayedPlace extends Place {
   get name() {
     return PlaceTypes.PLAYED;
   }
-
-  /**
-   * @param {Player} player 
-   */
-  visibleTo(player) {
-    return true;    
-  }
-
+  
 }
